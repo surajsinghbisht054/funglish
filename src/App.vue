@@ -27,7 +27,7 @@ const scoreCard = ref(localStorage.getItem(scoreCardStorageKey) || {
 watch(scoreCard, (newValue) => {
   localStorage.setItem(scoreCardStorageKey, newValue);
 });
-
+const lastWord = ref('');
 const resetScore = () => {
     scoreCard.value.correct = 0;
     scoreCard.value.wrong = 0;
@@ -36,6 +36,7 @@ const resetScore = () => {
     scoreCard.value.accuracy = 0;
 };
 const updateScore = (type) => {
+    lastWord.value = `${showBoardData.value?.correctWord}: ${showBoardData.value?.translation?.hindi}`;
     scoreCard.value[type] += 1;
     scoreCard.value.total += 1;
     scoreCard.value.accuracy = Math.round((scoreCard.value.correct / scoreCard.value.total) * 100);
@@ -61,9 +62,10 @@ const setgameLoop = (seconds) =>{
         
         const correctWord = getRandomWord();
         const correctWordTranslation = getRandomTranslation(correctWord);
-        const words = [getRandomWord(), getRandomWord(), getRandomWord(), getRandomWord(), getRandomWord(), correctWord];
+        const words = [getRandomWord(), getRandomWord(), getRandomWord(), getRandomWord(), correctWord];
         // Shuffle the words
         words.sort(() => Math.random() - 0.5);
+        
         showBoardData.value = {
             translation: correctWordTranslation,
             userSelectedWord: '',
@@ -74,7 +76,7 @@ const setgameLoop = (seconds) =>{
 }
 watch(screenPointer, (newValue) => {
     if(newValue === 0){
-        setgameLoop(4000);
+        setgameLoop(5000);
     }else{
         clearInterval(window.gameLoop);
     }
@@ -82,18 +84,20 @@ watch(screenPointer, (newValue) => {
 </script>
 
 <template>
-    <div class="surface-0" style="padding-bottom: 4.5rem;">
+    <div class="surface-0 py-4" style="padding-bottom: 4.5rem;">
         <!-- Game -->
         <div v-show="screenPointer === 0">
+            <div v-show="lastWord" class="w-full text-center p-2 capitalize">
+                {{  lastWord }}
+            </div>
             <div class="w-full surface-100 text-center text-2xl font-semibold p-2">
                 {{ showBoardData.translation.hindi||'-- Starting --' }}
             </div>
-            <div class="w-full flex flex-wrap gap-8 p-4 my-auto">
-                <label v-for="word in showBoardData.words" :key="word" @click="showBoardData.userSelectedWord = word" class="gameSelection capitalize shadow-1 border-1 border-200 font-semibold text-2xl p-4 border-round bg-indigo-50 cursor-pointer">
+            <div class="w-full flex flex-wrap gap-3 md:gap-8 p-2 md:p-4">
+                <label v-for="word in showBoardData.words" :key="word" @click="showBoardData.userSelectedWord = word" class="gameSelection animate__animated animate__rollIn animate__fast capitalize shadow-1 border-1 border-200 font-semibold text-xl md:text-2xl p-2 md:p-4 border-round bg-indigo-50 cursor-pointer">
                     <span >{{ word }}</span>
                     <input type="radio" name="gameSelection" class="hidden" />
                 </label>
-
             </div>
         </div>
         <!-- ScoreBoard -->
@@ -129,8 +133,8 @@ watch(screenPointer, (newValue) => {
             <p class="my-0">Learn English with fun</p>
             <p>
                 This is a simple app to learn English with fun.
-                You can learn English words and their meanings with this app.
-                You can also play games to test your knowledge.
+                You can learn english vocubulary with this app.
+                Learn English with fun and enjoy the learning.
             </p>
             <p>
                 Created by <a href="https://github.com/surajsinghbisht054" target="_blank">Suraj Singh</a>
@@ -145,6 +149,9 @@ watch(screenPointer, (newValue) => {
     </div>
 </template>
 <style>
+:root {
+    --font-size: 16px;
+}
 body {
     background-color: var(--p-surface-0);
 }
@@ -152,4 +159,5 @@ body {
     background-color: var(--p-indigo-500) !important;
     color: var(--p-surface-0);
 }
+
 </style>
