@@ -49,7 +49,7 @@ const resetScore = () => {
     scoreCard.value.accuracy = 0;
 };
 const updateScore = (type) => {
-    scoreCard.value.lastWord = `${boardData.value?.correctWord} = ${boardData.value?.translation?.hindi}`;
+    scoreCard.value.lastWord = `${boardData.value?.correctWord}:${boardData.value?.translation?.hindi}`;
     scoreCard.value[type] += 1;
     scoreCard.value.total += 1;
     scoreCard.value.accuracy = Math.round((scoreCard.value.correct / scoreCard.value.total) * 100);
@@ -66,7 +66,7 @@ const boardData = ref({
     userSelectedWord: '',
 })
 
-const { pause, resume, isActive } = useIntervalFn(() => {
+const gameLoop = () => {
     // update score
     if (boardData.value.correctWord && boardData.value.userSelectedWord === '') {
         updateScore('skipped');
@@ -87,7 +87,8 @@ const { pause, resume, isActive } = useIntervalFn(() => {
         correctWord,
         words,
     };
-}, 5000)
+}
+const { pause, resume, isActive } = useIntervalFn(gameLoop, 5000)
 pause();
 </script>
 
@@ -96,12 +97,14 @@ pause();
         <div style="padding-bottom: 4.5rem;">
             <!-- Game -->
             <div v-show="screenSwitchPtr === 0">
-                <div class="flex align-items-center justify-content-center gap-2 p-2">
-                    <Button v-if="isActive" label="Click to Pause" @click="pause" />
-                    <Button v-else label="Click to Play" @click="resume" />
+                
+                <div class="flex justify-content-between my-2">
+                    <div>Score</div>
+                    <div>
+                        {{ scoreCard.correct }}/{{ scoreCard.total }}
+                    </div>
                 </div>
-
-                <div class="flex align-items-center justify-content-between gap-2 p-2">
+                <div class="flex align-items-center justify-content-between gap-2 my-1">
                     <div class="text-2xl font-semibold">{{ boardData.translation.hindi || '[....]' }}</div>
                     <div class="capitalize text-xl">{{ scoreCard.lastWord }}</div>
                 </div>
@@ -116,15 +119,24 @@ pause();
                     <p>For each skipped answer you will get 0 point.</p>
                     <p>One word will be shown for 4 seconds.</p>
                 </div>
-                <div v-else class="w-full flex flex-wrap gap-3 md:gap-8 p-2 md:p-4">
-                    <label v-for="word in boardData.words" :key="word" @click="boardData.userSelectedWord = word"
-                        class="gameSelection animate__animated animate__rollIn animate__fast capitalize border-1 border-200 font-semibold text-xl md:text-2xl p-2 md:p-4 border-round bg-indigo-50 cursor-pointer">
-                        <span>{{ word }}</span>
-                        <input type="radio" name="gameSelection" class="hidden" />
-                    </label>
+                <div v-else style="height: 300px;">
+                    <div  class="w-full flex flex-wrap gap-3 md:gap-8">
+                        <label v-for="word in boardData.words" :key="word" @click="boardData.userSelectedWord = word"
+                            class="gameSelection animate__animated animate__rollIn animate__fast capitalize border-1 border-200 font-semibold text-xl md:text-2xl p-2 md:p-4 border-round bg-indigo-50 cursor-pointer">
+                            <span>{{ word }}</span>
+                            <input type="radio" name="gameSelection" class="hidden" />
+                        </label>
+                    </div>
                 </div>
+
+                <div class="flex align-items-center justify-content-center gap-2 p-2" >
+                    <Button v-if="isActive" label="Click to Pause" @click="pause" />
+                    <Button v-else label="Click to Play" @click="gameLoop();resume();" />
+                </div>
+                
+                
             </div>
-            
+
             <!-- ScoreBoard -->
             <div v-show="screenSwitchPtr === 1">
                 <h2 class="text-xl text-center font-semibold">Funglish Scoreboard</h2>
@@ -149,13 +161,13 @@ pause();
                     <div>{{ scoreCard.accuracy }}%</div>
                 </div>
                 <div class="text-center">
-                    <Button label="Reset" @click="resetScore" variant="contained" severity="secondary" />
+                    <Button label="Reset" @click="resetScore" />
                 </div>
             </div>
 
             <!-- About -->
             <div v-show="screenSwitchPtr === 2">
-                <div class="text-xl font-semibold">Funglish</div>
+                <h2 class="text-xl text-center font-semibold">Funglish</h2>
                 <p class="my-0">Learn English with fun</p>
                 <p>
                     This is a simple app to learn English with fun.
@@ -186,6 +198,7 @@ pause();
 
 body {
     background-color: var(--p-blue-50);
+    color: var(--p-gray-800);
 
 }
 
