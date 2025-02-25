@@ -98,16 +98,17 @@ pause();
             {{ scoreCard.correct }}/{{ scoreCard.total }}
         </div>
     </div>
-    
+
+
     <template v-if="scoreCard.lastWord">
         <div class="capitalize text-xl">{{ scoreCard.lastWord?.w?.join(',') }}</div>
         <div>{{ scoreCard.lastWord?.p }}</div>
-        <div v-for="word in scoreCard.lastWord?.e" :key="word" >{{ word }}</div>
+        <div v-for="word in scoreCard.lastWord?.e" :key="word">{{ word }}</div>
+        <div v-if="isActive" class="loading-container" :key="scoreCard.lastWord">
+            <div class="loading-bar"></div>
+        </div>
     </template>
-    
-    <div v-if="boardData.translation?.e?.length" class="loading-container" :key="boardData">
-        <div class="loading-bar"></div>
-    </div>
+
     <div v-if="!boardData.translation?.e?.length" class="text-center">
         <h3>Instructions</h3>
         <div>
@@ -118,50 +119,51 @@ pause();
             One word will be shown for 4 seconds. <br>
         </div>
     </div>
-    <Card v-else >
+    <Card v-else>
         <template #title>
             <span v-for="word in boardData.translation.e" :key="word" class="mr-2">{{ word }}</span>
         </template>
 
         <template #content>
             <div class="w-full flex flex-wrap gap-3 md:gap-8">
-            <label v-for="word in boardData.words" :key="word" @click="boardData.userSelectedWord = word"
-                class="checkbox-input gameSelection animate__animated shadow-1 animate__rollIn animate__fast capitalize p-2 md:p-4 bg-indigo-50 border-round cursor-pointer">
-                <span>{{ word }}</span>
-                <input type="radio" name="gameSelection" class="hidden" />
-            </label>
-        </div>
+                <label v-for="word in boardData.words" :key="word" @click="boardData.userSelectedWord = word"
+                    class="checkbox-input gameSelection animate__animated shadow-1 animate__rollIn animate__fast capitalize p-2 md:p-4 bg-indigo-50 border-round cursor-pointer">
+                    <span>{{ word }}</span>
+                    <input type="radio" name="gameSelection" class="hidden" />
+                </label>
+            </div>
         </template>
     </Card>
-    <div class="flex align-items-center justify-content-center gap-2 p-4" >
+    <div class="flex align-items-center justify-content-center gap-2 p-4">
         <Button v-if="isActive" label="Click to Pause" @click="pause" />
-        <Button v-else label="Click to Play" @click="gameLoop();resume();" />
+        <Button v-else label="Click to Play" @click="gameLoop(); resume();" />
     </div>
-    
+
 </template>
 <style>
 .gameSelection:has(input[type="radio"]:checked) {
-    background-color: var(--indigo-50) !important;
-    color: var(--indigo-700);
+    background-color: var(--p-indigo-200) !important;
+    color: var(--p-blue-900);
+    
 }
 
 .loading-container {
     width: calc(95vw);
-    max-width: 400px;
+    max-width: 640px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
     height: 10px;
-    background-color: var(--blue-50);
+    background-color: var(--p-blue-50);
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid var(--blue-200);
+    border: 1px solid var(--p-blue-200);
 }
 
 .loading-bar {
     width: 0;
     height: 100%;
-    background-color: var(--green-500);
+    background-color: var(--p-green-500);
     animation: load 5s linear forwards;
 }
 
