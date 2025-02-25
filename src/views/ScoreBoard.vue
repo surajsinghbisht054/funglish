@@ -32,7 +32,6 @@ const resetScore = () => {
 
 <template>
     <h2 class="text-center">Scoreboard</h2>
-    <Divider />
     <div class="my-2 flex align-items-center justify-content-between px-2">
         <h4 class="my-1">Correct</h4>
         <div>{{ scoreCard.correct }}</div>

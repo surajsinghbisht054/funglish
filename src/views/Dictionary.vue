@@ -20,7 +20,7 @@ const suggestionSearch = () => {
 
 <template>
     <h2 class="text-center">Dictionary</h2>
-    <Divider />
+
     <InputGroup>
         <AutoComplete forceSelection  size="large" v-model="searchQuery" :suggestions="items" placeholder="Search" @complete="suggestionSearch" />
         <InputGroupAddon>

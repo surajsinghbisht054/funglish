@@ -1,19 +1,47 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useLocalStorage } from '@vueuse/core'
 import { useIntervalFn } from '@vueuse/core';
 import { useVibrate } from '@vueuse/core';
 import { useWakeLock } from '@vueuse/core';
 import dictionary from '../data/dictionary.json';
+import BackgroundSound from '../data/background.mp3';
+import ChangeSound from '../data/change.wav';
+import CorrectSound from '../data/correct.wav';
+import WrongSound from '../data/wrong.mp3';
+import {Howl} from 'howler';
 
 
+const configValues = useLocalStorage(
+    'funglish-config-values',
+    {
+        bg_sound_volume: 0.3,
+        change_sound_volume: 0.5,
+        correct_sound_volume: 0.5,
+        wrong_sound_volume: 0.5,
+        transition_time: 5000,
+    },
+)
+
+const bg_sound = new Howl({
+  src: [BackgroundSound],
+  loop: true,
+  volume: configValues.value.bg_sound_volume,
+});
+const change_sound = new Howl({src: [ChangeSound], volume: configValues.value.change_sound_volume});
+const correct_sound = new Howl({src: [CorrectSound], volume: configValues.value.correct_sound_volume});
+const wrong_sound = new Howl({src: [WrongSound], volume:configValues.value.wrong_sound_volume});
 const wordKeys = Object.keys(dictionary);
 
 const { vibrate, isSupported } = useVibrate();
 onMounted(() => {
     const { request } = useWakeLock()
-    request('screen')
-
+    request('screen');
+})
+onUnmounted(() => {
+    bg_sound.stop();
+    const { release } = useWakeLock()
+    release('screen');
 })
 
 // All the words with length greater than 3
@@ -68,8 +96,10 @@ const gameLoop = () => {
         updateScore('skipped');
     } else if (boardData.value.correctWord && boardData.value.userSelectedWord === boardData.value.correctWord) {
         updateScore('correct');
+        correct_sound.play();
     } else if (boardData.value.correctWord && boardData.value.userSelectedWord !== boardData.value.correctWord) {
         updateScore('wrong');
+        wrong_sound.play();
     }
 
     const correctWord = getRandomWord();
@@ -84,14 +114,14 @@ const gameLoop = () => {
         correctWord,
         words,
     };
+    change_sound.play();
 }
-const { pause, resume, isActive } = useIntervalFn(gameLoop, 5000)
+const { pause, resume, isActive } = useIntervalFn(gameLoop, configValues.value.transition_time, { immediate: false });
 pause();
 </script>
 
 <template>
     <h2 class="text-center">Game</h2>
-    <Divider />
     <div class="flex justify-content-between my-2">
         <div>Score</div>
         <div>
@@ -104,7 +134,7 @@ pause();
         <div class="capitalize text-xl">{{ scoreCard.lastWord?.w?.join(',') }}</div>
         <div>{{ scoreCard.lastWord?.p }}</div>
         <div v-for="word in scoreCard.lastWord?.e" :key="word">{{ word }}</div>
-        <div v-if="isActive" class="loading-container" :key="scoreCard.lastWord">
+        <div v-show="isActive" class="loading-container" :key="scoreCard.lastWord">
             <div class="loading-bar"></div>
         </div>
     </template>
@@ -135,8 +165,8 @@ pause();
         </template>
     </Card>
     <div class="flex align-items-center justify-content-center gap-2 p-4">
-        <Button v-if="isActive" label="Click to Pause" @click="pause" />
-        <Button v-else label="Click to Play" @click="gameLoop(); resume();" />
+        <Button v-if="isActive" label="Click to Pause" @click="pause();bg_sound.stop();" />
+        <Button v-else label="Click to Play" @click="gameLoop(); resume();bg_sound.play();" />
     </div>
 
 </template>

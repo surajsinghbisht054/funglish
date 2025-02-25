@@ -12,6 +12,7 @@
         "@primevue/themes": "^4.0.0-rc.1",
         "@vueuse/components": "^12.7.0",
         "@vueuse/core": "^12.7.0",
+        "howler": "^2.2.4",
         "primeflex": "^4.0.0",
         "primeicons": "^7.0.0",
         "primevue": "^4.0.0-rc.1",
