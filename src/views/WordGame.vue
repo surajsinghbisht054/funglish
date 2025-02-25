@@ -100,9 +100,9 @@ pause();
     </div>
     
     <template v-if="scoreCard.lastWord">
-        <div class="capitalize text-xl">{{ scoreCard.lastWord.w.join(',') }}</div>
-        <div>{{ scoreCard.lastWord.p }}</div>
-        <div v-for="word in scoreCard.lastWord.e" :key="word" >{{ word }}</div>
+        <div class="capitalize text-xl">{{ scoreCard.lastWord?.w?.join(',') }}</div>
+        <div>{{ scoreCard.lastWord?.p }}</div>
+        <div v-for="word in scoreCard.lastWord?.e" :key="word" >{{ word }}</div>
     </template>
     
     <div v-if="boardData.translation?.e?.length" class="loading-container" :key="boardData">
