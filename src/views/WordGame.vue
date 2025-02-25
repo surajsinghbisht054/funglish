@@ -20,17 +20,19 @@ const configValues = useLocalStorage(
         correct_sound_volume: 0.5,
         wrong_sound_volume: 0.5,
         transition_time: 5000,
+        
     },
 )
 
 const bg_sound = new Howl({
   src: [BackgroundSound],
   loop: true,
+  html5: true,
   volume: configValues.value.bg_sound_volume,
 });
-const change_sound = new Howl({src: [ChangeSound], volume: configValues.value.change_sound_volume});
-const correct_sound = new Howl({src: [CorrectSound], volume: configValues.value.correct_sound_volume});
-const wrong_sound = new Howl({src: [WrongSound], volume:configValues.value.wrong_sound_volume});
+const change_sound = new Howl({html5: true, src: [ChangeSound], volume: configValues.value.change_sound_volume});
+const correct_sound = new Howl({html5: true, src: [CorrectSound], volume: configValues.value.correct_sound_volume});
+const wrong_sound = new Howl({html5: true, src: [WrongSound], volume:configValues.value.wrong_sound_volume});
 const wordKeys = Object.keys(dictionary);
 
 const { vibrate, isSupported } = useVibrate();
