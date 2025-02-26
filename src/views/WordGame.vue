@@ -1,8 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
-import { useLocalStorage } from '@vueuse/core'
-import { useIntervalFn } from '@vueuse/core';
-import { useVibrate } from '@vueuse/core';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useWakeLock } from '@vueuse/core';
 import dictionary from '../data/dictionary.json';
 import BackgroundSound from '../data/background.mp3';
@@ -10,32 +7,23 @@ import ChangeSound from '../data/change.wav';
 import CorrectSound from '../data/correct.wav';
 import WrongSound from '../data/wrong.mp3';
 import {Howl} from 'howler';
+import { useCountdown } from '@vueuse/core';
+import {configValues, scoreCard, scoreRecord} from '../store';
 
-
-const configValues = useLocalStorage(
-    'funglish-config-values',
-    {
-        bg_sound_volume: 0.3,
-        change_sound_volume: 0.5,
-        correct_sound_volume: 0.5,
-        wrong_sound_volume: 0.5,
-        transition_time: 5000,
-        
-    },
-)
-
+// sound
 const bg_sound = new Howl({
   src: [BackgroundSound],
   loop: true,
   html5: true,
-  volume: configValues.value.bg_sound_volume,
+  volume: configValues.value?.sound_volume || 0,
 });
-const change_sound = new Howl({html5: true, src: [ChangeSound], volume: configValues.value.change_sound_volume});
-const correct_sound = new Howl({html5: true, src: [CorrectSound], volume: configValues.value.correct_sound_volume});
-const wrong_sound = new Howl({html5: true, src: [WrongSound], volume:configValues.value.wrong_sound_volume});
+const change_sound = new Howl({html5: true, src: [ChangeSound], volume: configValues.value?.sound_volume || 0});
+const correct_sound = new Howl({html5: true, src: [CorrectSound], volume: configValues.value?.sound_volume || 0});
+const wrong_sound = new Howl({html5: true, src: [WrongSound], volume:configValues.value?.sound_volume || 0});
 const wordKeys = Object.keys(dictionary);
 
-const { vibrate, isSupported } = useVibrate();
+const gameIsRunning = ref(false);
+
 onMounted(() => {
     const { request } = useWakeLock()
     request('screen');
@@ -58,50 +46,31 @@ const getWordTranslation = (word) => {
     return dictionary[word];
 };
 
-const scoreCard = useLocalStorage(
-    'funglish-score-card',
-    {
-        correct: 0,
-        wrong: 0,
-        skipped: 0,
-        total: 0,
-        accuracy: 0,
-        lastWord: {},
-    },
-)
-
-const scoreRecord = useLocalStorage(
-    'funglish-word-record', []
-)
-
-const updateScore = (type) => {
-    scoreCard.value.lastWord = boardData.value?.translation;
-    scoreCard.value[type] += 1;
-    scoreCard.value.total += 1;
-    scoreCard.value.accuracy = Math.round((scoreCard.value.correct / scoreCard.value.total) * 100);
-    if (isSupported) {
-        if (type === 'wrong') {
-            vibrate(100);
-        }
-    }
-};
-const boardData = ref({
+const gameContext = ref({
     correctWord: '',
     translation: {},
     words: [],
     userSelectedWord: '',
 })
 
+
+const updateScore = (type) => {
+    scoreCard.value.lastWord = gameContext.value?.translation;
+    scoreCard.value[type] += 1;
+    scoreCard.value.total += 1;
+    scoreCard.value.accuracy = Math.round((scoreCard.value.correct / scoreCard.value.total) * 100);
+};
+
 const gameLoop = () => {
     // update score
-    if (boardData.value.correctWord && boardData.value.userSelectedWord === '') {
+    if (gameContext.value.correctWord && gameContext.value.userSelectedWord === '') {
         updateScore('skipped');
-    } else if (boardData.value.correctWord && boardData.value.userSelectedWord === boardData.value.correctWord) {
+    } else if (gameContext.value.correctWord && gameContext.value.userSelectedWord === gameContext.value.correctWord) {
         updateScore('correct');
-        correct_sound.play();
-    } else if (boardData.value.correctWord && boardData.value.userSelectedWord !== boardData.value.correctWord) {
+        if(configValues.value.sound)correct_sound.play();
+    } else if (gameContext.value.correctWord && gameContext.value.userSelectedWord !== gameContext.value.correctWord) {
         updateScore('wrong');
-        wrong_sound.play();
+        if(configValues.value.sound)wrong_sound.play();
     }
 
     const correctWord = getRandomWord();
@@ -110,38 +79,53 @@ const gameLoop = () => {
     const words = [getRandomWord(), getRandomWord(), getRandomWord(), getRandomWord(), correctWord];
     words.sort(() => Math.random() - 0.5);
 
-    boardData.value = {
+    gameContext.value = {
         translation: correctWordTranslation,
         userSelectedWord: '',
         correctWord,
         words,
     };
-    change_sound.play();
+    if(configValues.value.sound)change_sound.play();
+    
 }
-const { pause, resume, isActive } = useIntervalFn(gameLoop, configValues.value.transition_time, { immediate: false });
-pause();
+const progressBarWidth = ref(0);
+const counter = useCountdown(configValues.value.transition_time, {
+  onComplete() {
+    gameLoop();
+    counter.start(configValues.value.transition_time);
+  },
+  onTick() {
+    progressBarWidth.value = `${100 - Math.round((counter.remaining.value/configValues.value.transition_time)*100)}%`;
+  },
+  immediate: false
+});
+watch(gameIsRunning, (newState) => {
+    if (newState) {
+        if(configValues.value.sound)bg_sound.play();
+        gameLoop();
+        counter.start(configValues.value.transition_time);
+    }else{
+        counter.pause();
+        bg_sound.stop();
+
+    }
+});
+
 </script>
 
 <template>
     <h2 class="text-center">Game</h2>
     <div class="flex justify-content-between my-2">
         <div>Score</div>
-        <div>
+        <div class="flex gap-2 justify-content-end">
             {{ scoreCard.correct }}/{{ scoreCard.total }}
         </div>
     </div>
 
 
-    <template v-if="scoreCard.lastWord">
-        <div class="capitalize text-xl">{{ scoreCard.lastWord?.w?.join(',') }}</div>
-        <div>{{ scoreCard.lastWord?.p }}</div>
-        <div v-for="word in scoreCard.lastWord?.e" :key="word">{{ word }}</div>
-        <div v-show="isActive" class="loading-container" :key="scoreCard.lastWord">
-            <div class="loading-bar"></div>
-        </div>
-    </template>
+    
 
-    <div v-if="!boardData.translation?.e?.length" class="text-center">
+    <div v-if="!gameContext.translation?.e?.length" class="text-center">
         <h3>Instructions</h3>
         <div>
             Game will show you a word in hindi and you have to select the correct translation in English.<br>
@@ -152,24 +136,46 @@ pause();
         </div>
     </div>
     <Card v-else>
+        <template #header>
+            <div class="pt-3 pl-3 text-sm text-400">Select the correct word</div>
+        </template>
         <template #title>
-            <span v-for="word in boardData.translation.e" :key="word" class="mr-2">{{ word }}</span>
+            <p v-for="word in gameContext.translation.e" :key="word" class="m-1">{{ word }}</p>
         </template>
 
         <template #content>
             <div class="w-full flex flex-wrap gap-3 md:gap-8">
-                <label v-for="word in boardData.words" :key="word" @click="boardData.userSelectedWord = word"
-                    class="checkbox-input gameSelection animate__animated shadow-1 animate__rollIn animate__fast capitalize p-2 md:p-4 bg-indigo-50 border-round cursor-pointer">
+                <label v-for="word in gameContext.words" :key="word" @click="gameContext.userSelectedWord = word"
+                    class="checkbox-input gameSelection animate__animated font-semibold animate__rollIn animate__fast capitalize p-2 md:p-4 bg-indigo-50 border-round cursor-pointer">
                     <span>{{ word }}</span>
                     <input type="radio" name="gameSelection" class="hidden" />
                 </label>
             </div>
         </template>
+        <template #footer>
+            <div class="loading-container my-2" :key="scoreCard.lastWord">
+                <div class="loading-bar" :style="{width:progressBarWidth}"></div>
+            </div>
+        </template>
     </Card>
     <div class="flex align-items-center justify-content-center gap-2 p-4">
-        <Button v-if="isActive" label="Click to Pause" @click="pause();bg_sound.stop();" />
-        <Button v-else label="Click to Play" @click="gameLoop(); resume();bg_sound.play();" />
+        <Button v-if="gameIsRunning" label="Click to Pause" @click="gameIsRunning=!gameIsRunning" />
+        <Button v-else label="Click to Play"  @click="gameIsRunning=!gameIsRunning" />
     </div>
+
+    <Card v-if="scoreCard.lastWord">
+        <template #header>
+            <div class="pt-3 pl-3 text-sm text-400">Previous Word</div>
+        </template>
+        <template #title>
+            {{ scoreCard.lastWord?.w?.join(',') }}
+        </template>
+        <template #content>
+            <div>{{ scoreCard.lastWord?.p }}</div>
+            <div v-for="word in scoreCard.lastWord?.e" :key="word">{{ word }}</div>
+        </template>
+    </Card>
+    
 
 </template>
 <style>
@@ -180,8 +186,7 @@ pause();
 }
 
 .loading-container {
-    width: calc(95vw);
-    max-width: 640px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
@@ -193,19 +198,10 @@ pause();
 }
 
 .loading-bar {
-    width: 0;
     height: 100%;
     background-color: var(--p-green-500);
     animation: load 5s linear forwards;
 }
 
-@keyframes load {
-    from {
-        width: 0;
-    }
 
-    to {
-        width: 100%;
-    }
-}
 </style>
