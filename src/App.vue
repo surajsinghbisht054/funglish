@@ -13,6 +13,7 @@ import router from './router';
         <div @click="router.push({name:'home' })" class="cursor-pointer p-4"><i class="pi pi-play-circle"></i></div>
         <div @click="router.push({name:'scoreboard' })" class="cursor-pointer p-4"><i class="pi pi-history"></i></div>
         <div @click="router.push({name:'dictionary' })" class="cursor-pointer p-4"><i class="pi pi-book"></i></div>
+        <div @click="router.push({name:'conversation' })" class="cursor-pointer p-4"><i class="pi pi-comments"></i></div>
         <div @click="router.push({name:'about' })" class="cursor-pointer p-4"><i class="pi pi-cog"></i></div>
     </nav>
 </template>
