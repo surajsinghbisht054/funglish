@@ -1,34 +1,75 @@
 <template>
     <h2 class="text-center">Panel</h2>
-    
-    <div class="flex flex-wrap gap-4 p-2">
-        <div @click="$router.push({name:'game' })" class="cursor-pointer w-10rem align-items-center surface-0 border-round shadow-2 justify-content-center p-4 flex flex-column gap-1">
-            <i class="text-2xl mb-2 pi pi-play-circle"></i>
-            <span>Game</span>
+    <div class="p-2">
+        <div @click="$router.push({ name: 'game' })"
+            class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center">
+            <div class="flex gap-2 align-items-center">
+                <i class="pi pi-play-circle"></i>
+                <div>Game</div>
+            </div>
+            <div class="p-2 cursor-pointer" >
+                <i class="pi pi-arrow-right"></i>
+            </div>
         </div>
-        <div @click="$router.push({name:'scoreboard' })" class="cursor-pointer w-10rem align-items-center surface-0 border-round shadow-2 justify-content-center p-4 flex flex-column gap-1">
-            <i class="text-2xl mb-2 pi pi-address-book"></i>
-            <span>Scoreboard</span>
+        <div @click="$router.push({ name: 'scoreboard' })"
+            class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center">
+            <div class="flex gap-2 align-items-center">
+                <i class="pi pi-address-book"></i>
+                <div>Scoreboard</div>
+            </div>
+            <div class="p-2 cursor-pointer" >
+                <i class="pi pi-arrow-right"></i>
+            </div>
         </div>
-        <div @click="$router.push({name:'dictionary' })" class="cursor-pointer w-10rem align-items-center surface-0 border-round shadow-2 justify-content-center p-4 flex flex-column gap-1">
-            <i class="text-2xl mb-2 pi pi-book"></i>
-            <span>Dictionary</span>
+        <div @click="$router.push({ name: 'dictionary' })"
+            class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center">
+            <div class="flex gap-2 align-items-center">
+                <i class="pi pi-book"></i>
+                <div>Dictionary</div>
+            </div>
+            <div class="p-2 cursor-pointer" >
+                <i class="pi pi-arrow-right"></i>
+            </div>
         </div>
-        <div  @click="$router.push({name:'conversation' })" class="cursor-pointer w-10rem align-items-center surface-0 border-round shadow-2 justify-content-center p-4 flex flex-column gap-1">
-            <i class="text-2xl mb-2 pi pi-comments"></i>
-            <span>Conversation</span>
+        <div @click="$router.push({ name: 'conversation' })"
+            class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center">
+            <div class="flex gap-2 align-items-center">
+                <i class="pi pi-comments"></i>
+                <div>Conversation</div>
+            </div>
+            <div class="p-2 cursor-pointer" >
+                <i class="pi pi-arrow-right"></i>
+            </div>
         </div>
-        <div  @click="$router.push({name:'idioms' })" class="cursor-pointer w-10rem align-items-center surface-0 border-round shadow-2 justify-content-center p-4 flex flex-column gap-1">
-            <i class="text-2xl mb-2 pi pi-sparkles"></i>
-            <span>Idioms</span>
+        <div @click="$router.push({ name: 'idioms' })"
+            class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center">
+            <div class="flex gap-2 align-items-center">
+                <i class="pi pi-sparkles"></i>
+                <div>Idioms</div>
+            </div>
+            <div class="p-2 cursor-pointer" >
+                <i class="pi pi-arrow-right"></i>
+            </div>
         </div>
-        <div  @click="$router.push({name:'twisters' })" class="cursor-pointer w-10rem align-items-center surface-0 border-round shadow-2 justify-content-center p-4 flex flex-column gap-1">
-            <i class="text-2xl mb-2 pi pi-graduation-cap"></i>
-            <span>Twisters</span>
+        <div @click="$router.push({ name: 'twisters' })"
+            class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center">
+            <div class="flex gap-2 align-items-center">
+                <i class="pi pi-graduation-cap"></i>
+                <div>Twisters</div>
+            </div>
+            <div class="p-2 cursor-pointer" >
+                <i class="pi pi-arrow-right"></i>
+            </div>
         </div>
-        <div  @click="$router.push({name:'about' })" class="cursor-pointer w-10rem align-items-center surface-0 border-round shadow-2 justify-content-center p-4 flex flex-column gap-1">
-            <i class="text-2xl mb-2 pi pi-cog"></i>
-            <span>Settings</span>
+        <div @click="$router.push({ name: 'about' })"
+            class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center">
+            <div class="flex gap-2 align-items-center">
+                <i class="pi pi-cog"></i>
+                <div>Settings</div>
+            </div>
+            <div class="p-2 cursor-pointer" >
+                <i class="pi pi-arrow-right"></i>
+            </div>
         </div>
     </div>
 </template>

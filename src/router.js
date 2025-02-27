@@ -1,4 +1,4 @@
-import { createWebHashHistory, createRouter } from 'vue-router'
+import { createMemoryHistory, createRouter } from 'vue-router'
 import WordGameView from './views/WordGame.vue';
 import AboutView from './views/AboutUs.vue';
 import ScoreBoardView from './views/ScoreBoard.vue';
@@ -21,7 +21,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createMemoryHistory(),
   routes,
 })
 export default router;
