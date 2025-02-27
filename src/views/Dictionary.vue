@@ -21,7 +21,12 @@ const suggestionSearch = () => {
 </script>
 
 <template>
-    <h2 class="text-center">Dictionary</h2>
+    <div class="flex justify-content-between align-items-center px-1">
+        <span class="p-2 cursor-pointer" @click="$router.push({name:'home' })"><i class="pi pi-arrow-left"></i></span>
+        <h2 class="text-center">Dictionary</h2>
+        <span  class="p-3"></span>
+    </div>
+
 
     <InputGroup>
         <AutoComplete forceSelection  size="large" v-model="searchQuery" :suggestions="items" placeholder="Search" @option-select="performWordSearch" @complete="suggestionSearch" />

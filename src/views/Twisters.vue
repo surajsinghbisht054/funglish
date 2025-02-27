@@ -1,54 +1,50 @@
 <script setup>
 import { ref } from 'vue';
-import DiscussionArray from '../data/discussion.json';
-const conversation = ref();
+import TongueTwisterArray from '../data/tongue_twister.json';
+const Twister = ref();
 const drawVisible = ref(false);
 </script>
 
 <template>
     <div class="flex justify-content-between align-items-center px-1">
         <span class="p-2 cursor-pointer" @click="$router.push({name:'home' })"><i class="pi pi-arrow-left"></i></span>
-        <h2 class="text-center">Conversation</h2>
+        <h2 class="text-center">Tongue Twisters</h2>
         <span  class="p-3"></span>
     </div>
 
-
     <div class="p-2">
-        <div v-for="data in DiscussionArray"
+        <div v-for="data in TongueTwisterArray"
             class="surface-0 w-full m-2 p-3 border-200 border-1 border-round flex justify-content-between align-items-center"
-            :key="data.scenario" @click="conversation = data; drawVisible = true">
-            <div>{{ data.scenario }}</div>
+            :key="data.focus" @click="Twister = data; drawVisible = true">
+            <div>{{ data.focus }}</div>
             <div class="p-2 cursor-pointer" >
                 <i class="pi pi-arrow-right"></i>
             </div>
         </div>
     </div>
-    <Drawer v-model:visible="drawVisible" header="Conversation" class="surface-ground" position="full">
+    <Drawer v-model:visible="drawVisible" header="Tongue Twister" class="surface-ground" position="full">
         <Card class="my-4">
             <template #title>
-                Scenario
+                Focus
             </template>
             <template #content>
-                <p>{{ conversation.scenario }}</p>
+                <p>{{ Twister.focus }}</p>
             </template>
         </Card>
         <Card class="my-4">
             <template #title>
-                Context
+                Sound focus
             </template>
             <template #content>
-                <p>{{ conversation.context }}</p>
+                <p>{{ Twister.sound_focus.join(', ') }}</p>
             </template>
         </Card>
         <Card class="my-4">
             <template #title>
-                Conversation
+                Twister
             </template>
             <template #content>
-                <div v-for="line in conversation.conversation">
-                    <div class="font-semibold">{{ line.speaker }}</div>
-                    <p>{{ line.text }}</p>
-                </div>
+                {{ Twister.tongue_twister }}
             </template>
         </Card>
 

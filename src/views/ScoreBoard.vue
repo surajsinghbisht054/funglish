@@ -31,7 +31,11 @@ const resetScore = () => {
 </script>
 
 <template>
-    <h2 class="text-center">Scoreboard</h2>
+    <div class="flex justify-content-between align-items-center px-1">
+        <span class="p-2 cursor-pointer" @click="$router.push({name:'home' })"><i class="pi pi-arrow-left"></i></span>
+        <h2 class="text-center">Scoreboard</h2>
+        <span  class="p-3"></span>
+    </div>
     <div class="my-2 flex align-items-center justify-content-between px-2">
         <h4 class="my-1">Correct</h4>
         <div>{{ scoreCard.correct }}</div>

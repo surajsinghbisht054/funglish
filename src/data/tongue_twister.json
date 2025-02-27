@@ -1,0 +1,411 @@
+[
+    {
+        "tongue_twister": "Peter Piper picked a peck of pickled peppers.",
+        "focus": "P and P sounds, repetition",
+        "sound_focus": [
+            "p",
+            "k"
+        ]
+    },
+    {
+        "tongue_twister": "A peck of pickled peppers Peter Piper picked.",
+        "focus": "P and K sounds, word order",
+        "sound_focus": [
+            "p",
+            "k"
+        ]
+    },
+    {
+        "tongue_twister": "If Peter Piper picked a peck of pickled peppers, Where’s the peck of pickled peppers Peter Piper picked?",
+        "focus": "P and K sounds, question form, long repetition",
+        "sound_focus": [
+            "p",
+            "k"
+        ]
+    },
+    {
+        "tongue_twister": "Betty Botter bought some butter, But she said the butter’s bitter, If I put it in my batter, it will make my batter bitter, But a bit of better butter will make my batter better, So ‘twas better Betty Botter bought a bit of better butter.",
+        "focus": "B and T sounds, repetition, contrasting words",
+        "sound_focus": [
+            "b",
+            "t"
+        ]
+    },
+    {
+        "tongue_twister": "How much wood would a woodchuck chuck if a woodchuck could chuck wood? He would chuck, he would, as much as he could, and chuck as much wood As a woodchuck would if a woodchuck could chuck wood.",
+        "focus": "W and CH sounds, repetition",
+        "sound_focus": [
+            "w",
+            "ch"
+        ]
+    },
+    {
+        "tongue_twister": "She sells seashells by the seashore.",
+        "focus": "S and SH sounds",
+        "sound_focus": [
+            "s",
+            "sh"
+        ]
+    },
+    {
+        "tongue_twister": "How can a clam cram in a clean cream can?",
+        "focus": "C and CR sounds",
+        "sound_focus": [
+            "k",
+            "kr"
+        ]
+    },
+    {
+        "tongue_twister": "I scream, you scream, we all scream for ice cream.",
+        "focus": "SC and CR sounds",
+        "sound_focus": [
+            "skr",
+            "kr"
+        ]
+    },
+    {
+        "tongue_twister": "I saw Susie sitting in a shoeshine shop. Susie works in a shoeshine shop. Where she shines she sits, and where she sits she shines.",
+        "focus": "S and SH sounds, repetition",
+        "sound_focus": [
+            "s",
+            "sh"
+        ]
+    },
+    {
+        "tongue_twister": "Fuzzy Wuzzy was a bear. Fuzzy Wuzzy had no hair. Fuzzy Wuzzy wasn’t fuzzy, was he?",
+        "focus": "F and Z sounds",
+        "sound_focus": [
+            "f",
+            "z"
+        ]
+    },
+    {
+        "tongue_twister": "Can you can a can as a canner can can a can?",
+        "focus": "CAN sound, repetition",
+        "sound_focus": [
+            "k",
+            "æn"
+        ]
+    },
+    {
+        "tongue_twister": "I have got a date at a quarter to eight; I’ll see you at the gate, so don’t be late.",
+        "focus": "T and A sounds, rhyming",
+        "sound_focus": [
+            "t",
+            "eɪt"
+        ]
+    },
+    {
+        "tongue_twister": "You know New York, you need New York, you know you need unique New York.",
+        "focus": "N and K sounds, repetition",
+        "sound_focus": [
+            "n",
+            "k"
+        ]
+    },
+    {
+        "tongue_twister": "I saw a kitten eating chicken in the kitchen.",
+        "focus": "K and CH sounds",
+        "sound_focus": [
+            "k",
+            "ch"
+        ]
+    },
+    {
+        "tongue_twister": "If a dog chews shoes, whose shoes does he choose?",
+        "focus": "CH and S sounds",
+        "sound_focus": [
+            "ch",
+            "z"
+        ]
+    },
+    {
+        "tongue_twister": "I thought I thought of thinking of thanking you.",
+        "focus": "TH sounds, repetition",
+        "sound_focus": [
+            "θ"
+        ]
+    },
+    {
+        "tongue_twister": "I wish to wash my Irish wristwatch.",
+        "focus": "W and SH sounds",
+        "sound_focus": [
+            "w",
+            "sh"
+        ]
+    },
+    {
+        "tongue_twister": "Near an ear, a nearer ear, a nearly eerie ear.",
+        "focus": "R and EAR sounds",
+        "sound_focus": [
+            "r",
+            "ɪr"
+        ]
+    },
+    {
+        "tongue_twister": "Eddie edited it.",
+        "focus": "ED sounds, repetition",
+        "sound_focus": [
+            "ɛd"
+        ]
+    },
+    {
+        "tongue_twister": "Willie’s really weary.",
+        "focus": "W and R sounds",
+        "sound_focus": [
+            "w",
+            "r"
+        ]
+    },
+    {
+        "tongue_twister": "A big black bear sat on a big black rug.",
+        "focus": "B and R sounds",
+        "sound_focus": [
+            "b",
+            "r"
+        ]
+    },
+    {
+        "tongue_twister": "Tom threw Tim three thumbtacks.",
+        "focus": "T and TH sounds",
+        "sound_focus": [
+            "t",
+            "θ"
+        ]
+    },
+    {
+        "tongue_twister": "He threw three free throws.",
+        "focus": "TH and R sounds",
+        "sound_focus": [
+            "θr"
+        ]
+    },
+    {
+        "tongue_twister": "Nine nice night nurses nursing nicely.",
+        "focus": "N sounds, repetition",
+        "sound_focus": [
+            "n"
+        ]
+    },
+    {
+        "tongue_twister": "So, this is the sushi chef.",
+        "focus": "S and SH sounds",
+        "sound_focus": [
+            "s",
+            "sh"
+        ]
+    },
+    {
+        "tongue_twister": "Four fine fresh fish for you.",
+        "focus": "F and SH sounds",
+        "sound_focus": [
+            "f",
+            "sh"
+        ]
+    },
+    {
+        "tongue_twister": "Wayne went to wales to watch walruses.",
+        "focus": "W sounds, repetition",
+        "sound_focus": [
+            "w"
+        ]
+    },
+    {
+        "tongue_twister": "Six sticky skeletons. (x3)",
+        "focus": "S and K sounds",
+        "sound_focus": [
+            "s",
+            "k"
+        ]
+    },
+    {
+        "tongue_twister": "Which witch is which? (x3)",
+        "focus": "WH sounds",
+        "sound_focus": [
+            "wɪtʃ"
+        ]
+    },
+    {
+        "tongue_twister": "Snap crackle pop. (x3)",
+        "focus": "SP, CR, and P sounds",
+        "sound_focus": [
+            "sp",
+            "kr",
+            "p"
+        ]
+    },
+    {
+        "tongue_twister": "Flash message. (x3)",
+        "focus": "FL and SH sounds",
+        "sound_focus": [
+            "fl",
+            "sh"
+        ]
+    },
+    {
+        "tongue_twister": "Red Buick, blue Buick. (x3)",
+        "focus": "R and B sounds",
+        "sound_focus": [
+            "r",
+            "b"
+        ]
+    },
+    {
+        "tongue_twister": "Red lorry, yellow lorry. (x3)",
+        "focus": "R and L sounds",
+        "sound_focus": [
+            "r",
+            "l"
+        ]
+    },
+    {
+        "tongue_twister": "Thin sticks, thick bricks. (x3)",
+        "focus": "TH, S, and B sounds",
+        "sound_focus": [
+            "θ",
+            "s",
+            "b"
+        ]
+    },
+    {
+        "tongue_twister": "Stupid superstition. (x3)",
+        "focus": "S and P sounds",
+        "sound_focus": [
+            "s",
+            "p"
+        ]
+    },
+    {
+        "tongue_twister": "Eleven benevolent elephants. (x3)",
+        "focus": "E and L sounds",
+        "sound_focus": [
+            "ɛ",
+            "l"
+        ]
+    },
+    {
+        "tongue_twister": "Two tried and true tridents. (x3)",
+        "focus": "T and R sounds",
+        "sound_focus": [
+            "t",
+            "r"
+        ]
+    },
+    {
+        "tongue_twister": "Rolling red wagons. (x3)",
+        "focus": "R and W sounds",
+        "sound_focus": [
+            "r",
+            "w"
+        ]
+    },
+    {
+        "tongue_twister": "Black back bat. (x3)",
+        "focus": "B and K sounds",
+        "sound_focus": [
+            "b",
+            "k"
+        ]
+    },
+    {
+        "tongue_twister": "She sees cheese. (x3)",
+        "focus": "SH and Z sounds",
+        "sound_focus": [
+            "sh",
+            "z"
+        ]
+    },
+    {
+        "tongue_twister": "Truly rural. (x3)",
+        "focus": "TR and R sounds",
+        "sound_focus": [
+            "tr",
+            "r"
+        ]
+    },
+    {
+        "tongue_twister": "Good blood, bad blood. (x3)",
+        "focus": "B and L sounds",
+        "sound_focus": [
+            "b",
+            "l"
+        ]
+    },
+    {
+        "tongue_twister": "Pre-shrunk silk shirts. (x3)",
+        "focus": "PR, SH, and S sounds",
+        "sound_focus": [
+            "pr",
+            "sh",
+            "s"
+        ]
+    },
+    {
+        "tongue_twister": "Ed had edited it. (x3)",
+        "focus": "ED sounds, repetition",
+        "sound_focus": [
+            "ɛd"
+        ]
+    },
+    {
+        "tongue_twister": "We surely shall see the sun shine soon.",
+        "focus": "S and SH sounds",
+        "sound_focus": [
+            "s",
+            "sh"
+        ]
+    },
+    {
+        "tongue_twister": "Which wristwatches are Swiss wristwatches?",
+        "focus": "WH, R, and S sounds",
+        "sound_focus": [
+            "w",
+            "r",
+            "s"
+        ]
+    },
+    {
+        "tongue_twister": "Fred fed Ted bread, and Ted fed Fred bread.",
+        "focus": "F, T, and R sounds",
+        "sound_focus": [
+            "f",
+            "t",
+            "r"
+        ]
+    },
+    {
+        "tongue_twister": "I slit the sheet, the sheet I slit, and on the slitted sheet I sit.",
+        "focus": "S, L, and T sounds",
+        "sound_focus": [
+            "s",
+            "l",
+            "t"
+        ]
+    },
+    {
+        "tongue_twister": "A skunk sat on a stump and thunk the stump stunk, but the stump thunk the skunk stunk.",
+        "focus": "S, T, and K sounds",
+        "sound_focus": [
+            "s",
+            "t",
+            "k"
+        ]
+    },
+    {
+        "tongue_twister": "Lesser leather never weathered wetter weather better.",
+        "focus": "L, TH, and W sounds",
+        "sound_focus": [
+            "l",
+            "ð",
+            "w"
+        ]
+    },
+    {
+        "tongue_twister": "Of all the vids I’ve ever viewed, I’ve never viewed a vid as valued as Alex’s engVid vid.",
+        "focus": "V and D sounds",
+        "sound_focus": [
+            "v",
+            "d"
+        ]
+    }
+]

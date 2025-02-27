@@ -114,17 +114,17 @@ watch(gameIsRunning, (newState) => {
 </script>
 
 <template>
-    <h2 class="text-center">Game</h2>
+    <div class="flex justify-content-between align-items-center px-1">
+        <span class="p-2 cursor-pointer" @click="$router.push({name:'home' })"><i class="pi pi-arrow-left"></i></span>
+        <h2 class="text-center">Game</h2>
+        <span  class="p-3"></span>
+    </div>
     <div class="flex justify-content-between my-2">
         <div>Score</div>
         <div class="flex gap-2 justify-content-end">
             {{ scoreCard.correct }}/{{ scoreCard.total }}
         </div>
     </div>
-
-
-    
-
     <div v-if="!gameContext.translation?.e?.length" class="text-center">
         <h3>Instructions</h3>
         <div>
