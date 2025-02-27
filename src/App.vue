@@ -5,7 +5,7 @@ import { UseScreenSafeArea } from '@vueuse/components'
 
 <template>
     <UseScreenSafeArea top bottom>
-        <main style="padding-bottom: 3rem;padding-top: 1rem;">
+        <main style="padding-bottom: 5rem;">
             <RouterView />
         </main>
     </UseScreenSafeArea>
