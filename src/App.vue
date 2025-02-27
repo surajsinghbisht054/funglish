@@ -4,9 +4,11 @@ import { UseScreenSafeArea } from '@vueuse/components'
 </script>
 
 <template>
-    <main style="padding-bottom: 3rem;padding-top: 3rem;">
-        <RouterView />
-    </main>
+    <UseScreenSafeArea top bottom>
+        <main style="padding-bottom: 3rem;padding-top: 1rem;">
+            <RouterView />
+        </main>
+    </UseScreenSafeArea>
 </template>
 <style>
 :root {
